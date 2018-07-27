@@ -174,6 +174,9 @@ def run_build(buildInfo):
         if language == "sonar":
             build_args = "%s --build-arg GLIBC_VERSION=%s --build-arg SONARSCANNER_VERSION=%s" % (build_args, os.environ.get("GLIBC_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
 
+        if language == "sonarts":
+            build_args = "%s --build-arg NODE_VERSION=%s --build-arg NPM_VERSION=%s --build-arg SONARSCANNER_VERSION=%s" % (build_args, os.environ.get("NODE_VERSION"), os.environ.get("NPM_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
+        
         cmd = "docker build -t %s %s --no-cache %s" % (image, build_args, build_context)
 
         print "> Run: %s" % cmd
@@ -250,7 +253,13 @@ def run_build(buildInfo):
         if language == "sonar":
             print "> Testing Sonar Scanner Image..."
             run_command_exit("docker run %s %s java -version" % (run_args, image),   "Error with java version")
-            run_command_exit("docker run %s %s sonar-scanner -v" % (run_args, image), "Error with ansible-playbook check")
+            run_command_exit("docker run %s %s sonar-scanner -v" % (run_args, image), "Error with sonar-scanner check")
+
+        if language == "sonarts":
+            print "> Testing SonarTS Scanner Image..."
+            run_command_exit("docker run %s %s node --version" % (run_args, image), "Error with node check")
+            run_command_exit("docker run %s %s npm --version" % (run_args, image), "Error with npm check")
+            run_command_exit("docker run %s %s sonar-scanner -v" % (run_args, image), "Error with sonar-scanner check")
 
         print ""
         print "You can now test the image with the following command:\n   $ docker run --rm -ti %s" % image

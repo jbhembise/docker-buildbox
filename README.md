@@ -61,6 +61,10 @@ Contains Ansible, CI Helper and Python 2.7
 
 Contains SonarQube Scanner and CI Helper
 
+### Sonarts
+Contains node (installed in the NODE_VERSION env var value), SonarQube Scanner and CI Helper
+SonarTs plugin need local node to send information to sonar.
+
 ### React Native Android
 
 Contains Java 8, Gradle, Android SDK, Node 7.10 and React Native Cli

@@ -13,6 +13,7 @@ Versions
 * Add bash to Python images
 * Add an up to date mime types definition file for the images that use AWS CLI
 * Install PEAR in the PHP 5.3 image
+* Add sonarts image
 
 2018-06-14
 ----------
