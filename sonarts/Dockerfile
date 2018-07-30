@@ -1,5 +1,5 @@
 FROM debian:8.7
-LABEL maintainer="Thomas Rabaix <rabaix@ekino.com>"
+LABEL maintainer="Sebastien Augereau <sebastien.augereau@ekino.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=C.UTF-8 \
