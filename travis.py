@@ -175,8 +175,12 @@ def run_build(buildInfo):
             build_args = "%s --build-arg GLIBC_VERSION=%s --build-arg SONARSCANNER_VERSION=%s" % (build_args, os.environ.get("GLIBC_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
 
         if language == "sonarts":
-            build_args = "%s --build-arg NODE_VERSION=%s --build-arg NPM_VERSION=%s --build-arg SONARSCANNER_VERSION=%s" % (build_args, os.environ.get("NODE_VERSION"), os.environ.get("NPM_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
-        
+            build_args = "%s --build-arg GLIBC_VERSION=%s --build-arg SONARSCANNER_VERSION=%s " % (build_args, os.environ.get("GLIBC_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
+            build_context = "-f %s/Dockerfile.%s %s" % (language, version, language)
+            run_command_exit('sed -e "s,{{VERSION}},%s," %s/Dockerfile.tpl > %s/Dockerfile.%s' % (os.environ.get("VERSION"), language, language, version), "fail to create Dockerfile for %s %s" % (language, os.environ.get("VERSION")))
+
+
+
         cmd = "docker build -t %s %s --no-cache %s" % (image, build_args, build_context)
 
         print "> Run: %s" % cmd
@@ -258,7 +262,6 @@ def run_build(buildInfo):
         if language == "sonarts":
             print "> Testing SonarTS Scanner Image..."
             run_command_exit("docker run %s %s node --version" % (run_args, image), "Error with node check")
-            run_command_exit("docker run %s %s npm --version" % (run_args, image), "Error with npm check")
             run_command_exit("docker run %s %s sonar-scanner -v" % (run_args, image), "Error with sonar-scanner check")
 
         print ""
