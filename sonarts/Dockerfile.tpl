@@ -1,4 +1,4 @@
-FROM node:{{VERSION}}
+FROM node:{{NODE_VERSION}}
 LABEL maintainer="Sebastien Augereau <sebastien.augereau@ekino.com>"
 
 ARG CI_HELPER_VERSION

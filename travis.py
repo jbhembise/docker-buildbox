@@ -177,7 +177,7 @@ def run_build(buildInfo):
         if language == "sonarts":
             build_args = "%s --build-arg GLIBC_VERSION=%s --build-arg SONARSCANNER_VERSION=%s " % (build_args, os.environ.get("GLIBC_VERSION"), os.environ.get("SONARSCANNER_VERSION"))
             build_context = "-f %s/Dockerfile.%s %s" % (language, version, language)
-            run_command_exit('sed -e "s,{{VERSION}},%s," %s/Dockerfile.tpl > %s/Dockerfile.%s' % (os.environ.get("VERSION"), language, language, version), "fail to create Dockerfile for %s %s" % (language, os.environ.get("VERSION")))
+            run_command_exit('sed -e "s,{{NODE_VERSION}},%s," %s/Dockerfile.tpl > %s/Dockerfile.%s' % (os.environ.get("NODE_VERSION"), language, language, version), "fail to create Dockerfile for %s %s" % (language, os.environ.get("VERSION")))
 
 
 
